@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Jinan · City of Springs | Immersive Cultural Journey</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #FEFCF5;
+            font-family: 'Inter', sans-serif;
+            color: #1F2A24;
+            overflow-x: hidden;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* ========= HERO 区域 · 加大城市标识 ========= */
+        .hero {
+            min-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: linear-gradient(120deg, rgba(0,0,0,0.45), rgba(0,0,0,0.55)), url("images/top.jpg");
+            background-size: cover;
+            background-position: center 25%;
+            position: relative;
+            margin-bottom: 2rem;
+        }
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 30%;
+            background: linear-gradient(to top, #FEFCF5, transparent);
+        }
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+        /* 放大城市标识 */
+        .hero-badge {
+            background: rgba(255,245,220,0.25);
+            backdrop-filter: blur(8px);
+            padding: 0.6rem 2rem;
+            border-radius: 60px;
+            font-size: 1.2rem;
+            letter-spacing: 6px;
+            font-weight: 700;
+            color: #FFEFCF;
+            display: inline-block;
+            margin-bottom: 1rem;
+            border: 1px solid rgba(255,235,180,0.4);
+        }
+        .hero h1 {
+            font-size: clamp(3rem, 8vw, 5.8rem);
+            font-weight: 800;
+            background: linear-gradient(135deg, #FFF, #FFE3AA);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            margin: 0.8rem 0;
+        }
+        .hero p {
+            max-width: 640px;
+            color: #FFF5E6;
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        /* 导航 */
+        .nav-sticky {
+            position: sticky;
+            top: 1rem;
+            z-index: 100;
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            margin: 1rem 0 2rem;
+        }
+        .nav-link {
+            background: rgba(255,250,235,0.85);
+            backdrop-filter: blur(12px);
+            padding: 0.5rem 1.4rem;
+            border-radius: 60px;
+            font-weight: 600;
+            color: #2E4A2C;
+            text-decoration: none;
+            transition: 0.2s;
+            border: 0.5px solid rgba(160,130,70,0.3);
+        }
+        .nav-link:hover {
+            background: #F0E5D4;
+            transform: translateY(-2px);
+        }
+
+        /* 模块标题通用 */
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        .section-header h2 {
+            font-size: 2.6rem;
+            font-weight: 700;
+            color: #2D4A2A;
+        }
+        .section-header p {
+            color: #6B7E64;
+            max-width: 600px;
+            margin: 0.5rem auto 0;
+        }
+
+        /* ===== 1. 简介模块：左图右文，图片悬停放大 ===== */
+        .intro-block {
+            margin: 6rem 0;
+
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 3rem;
+        }
+        .intro-img {
+            flex: 1.2;
+            overflow: hidden;
+            border-radius: 2rem;
+            box-shadow: 0 25px 35px -15px rgba(0,0,0,0.2);
+        }
+        .intro-img img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.5s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+        }
+        .intro-img:hover img {
+            transform: scale(1.05);
+        }
+        .intro-text {
+            flex: 1;
+            padding: 1rem;
+        }
+        .intro-text .section-tag {
+            background: #E9DFCF;
+            display: inline-block;
+            padding: 0.2rem 1rem;
+            border-radius: 30px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: #9B7A4C;
+        }
+        .intro-text h2 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            margin: 0.8rem 0 1rem;
+            color: #2C4B2A;
+        }
+        .intro-text p {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #52664E;
+            margin-bottom: 1rem;
+        }
+        .stat-grid {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        .stat {
+            background: #F7F2E6;
+            padding: 0.6rem 1rem;
+            border-radius: 1.5rem;
+            text-align: center;
+        }
+        .stat strong {
+            font-size: 1.6rem;
+            color: #AA7A3C;
+        }
+
+        /* ===== 2. 历史模块：左右交错式，图片缩放 ===== */
+        .history-alternate {
+            margin: 6rem 0;
+        }
+        .history-item {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 2.5rem;
+            margin-bottom: 4rem;
+            background: #FEFAF2;
+            border-radius: 2rem;
+            padding: 1.2rem;
+            transition: all 0.3s;
+        }
+        .history-item.reverse {
+            flex-direction: row-reverse;
+        }
+        .history-img {
+            flex: 1;
+            overflow: hidden;
+            border-radius: 1.5rem;
+            box-shadow: 0 12px 20px -10px rgba(0,0,0,0.1);
+        }
+        .history-img img {
+            width: 100%;
+            display: block;
+            transition: transform 0.45s ease;
+        }
+        .history-img:hover img {
+            transform: scale(1.04);
+        }
+        .history-text {
+            flex: 1;
+            padding: 1rem;
+        }
+        .history-text .year {
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            color: #C68E4A;
+            font-weight: 600;
+        }
+        .history-text h3 {
+            font-size: 1.9rem;
+            margin: 0.5rem 0;
+            font-weight: 700;
+        }
+        .history-text p {
+            color: #4F644A;
+            line-height: 1.5;
+        }
+
+        /* ===== 3. 景点模块：横向画廊，悬停放大 + 浮层 ===== */
+        .scenic-showcase {
+            margin: 6rem 0;
+        }
+        .scenic-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            justify-content: center;
+        }
+        .scenic-card {
+            flex: 1;
+            min-width: 260px;
+            position: relative;
+            border-radius: 1.8rem;
+            overflow: hidden;
+            background: #fff;
+            box-shadow: 0 20px 30px -15px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+        }
+        .scenic-card-inner {
+            position: relative;
+            overflow: hidden;
+        }
+        .scenic-card-inner img {
+            width: 100%;
+            aspect-ratio: 4/3;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+            display: block;
+        }
+        .scenic-card:hover .scenic-card-inner img {
+            transform: scale(1.08);
+        }
+        .scenic-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+            padding: 1.5rem 1rem 1rem;
+            color: white;
+            transform: translateY(0);
+            transition: 0.25s;
+        }
+        .scenic-card:hover .scenic-overlay {
+            background: linear-gradient(to top, rgba(0,0,0,0.85), rgba(0,0,0,0.2));
+        }
+        .scenic-overlay h4 {
+            font-size: 1.4rem;
+            font-weight: 700;
+        }
+        .scenic-overlay p {
+            font-size: 0.8rem;
+            opacity: 0.9;
+        }
+
+        /* ===== 4. 美食模块：圆形图片 + 悬停缩放旋转 ===== */
+        .cuisine-duo {
+            margin: 6rem 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 3rem;
+            align-items: center;
+            justify-content: center;
+        }
+        .cuisine-item {
+            flex: 1;
+            min-width: 220px;
+            text-align: center;
+            background: #FFF7EF;
+            border-radius: 2.5rem;
+            padding: 2rem 1.5rem;
+            transition: all 0.3s;
+        }
+        .cuisine-item:hover {
+            transform: translateY(-10px);
+            background: #FFFFFF;
+            box-shadow: 0 25px 35px -12px rgba(160, 100, 30, 0.2);
+        }
+        .circle-img {
+            width: 160px;
+            height: 160px;
+            margin: 0 auto 1rem;
+            overflow: hidden;
+            border-radius: 50%;
+            border: 4px solid #F5E2C8;
+            transition: transform 0.4s;
+        }
+        .cuisine-item:hover .circle-img {
+            transform: scale(0.95) rotate(2deg);
+        }
+        .circle-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        .cuisine-item:hover .circle-img img {
+            transform: scale(1.1);
+        }
+        .cuisine-item h3 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #B85C1A;
+        }
+
+        /* ===== 5. 新增模块：泉城非遗·文化瑰宝 (交错式 + 悬浮效果) ===== */
+        .culture-showcase {
+            margin: 6rem 0;
+            background: #F8F4EA;
+            border-radius: 3rem;
+            padding: 3rem 2rem;
+        }
+        .culture-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            justify-content: center;
+        }
+        .culture-card {
+            flex: 1;
+            min-width: 260px;
+            background: white;
+            border-radius: 2rem;
+            overflow: hidden;
+            transition: all 0.3s;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+        }
+        .culture-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 30px -12px rgba(0,0,0,0.2);
+        }
+        .culture-img {
+            overflow: hidden;
+        }
+        .culture-img img {
+            width: 100%;
+            aspect-ratio: 4/3;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        .culture-card:hover .culture-img img {
+            transform: scale(1.05);
+        }
+        .culture-info {
+            padding: 1.2rem 1.2rem 1.5rem;
+        }
+        .culture-info h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        .culture-info p {
+            color: #5B6E54;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        /* ===== 6. 新增模块：现代济南·未来之城 (左右交错) ===== */
+        .modern-jinan {
+            margin: 6rem 0;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 3rem;
+            background: linear-gradient(120deg, #F0F4EA, #FFFFFF);
+            border-radius: 2.5rem;
+            padding: 2rem;
+        }
+        .modern-text {
+            flex: 1;
+        }
+        .modern-text h2 {
+
+            font-size: 2.4rem;
+            font-weight: 700;
+            color: #2E6738;
+        }
+        .modern-text p {
+            margin: 1rem 0;
+            line-height: 1.6;
+            color: #4C6247;
+        }
+        .modern-stats {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+        .modern-stats div {
+            background: #E6EEDC;
+            padding: 0.8rem 1.2rem;
+            border-radius: 2rem;
+            text-align: center;
+        }
+        .modern-img {
+            flex: 1;
+            overflow: hidden;
+            border-radius: 1.8rem;
+            box-shadow: 0 20px 30px -10px rgba(0,0,0,0.15);
+        }
+        .modern-img img {
+            width: 100%;
+            display: block;
+            transition: transform 0.45s;
+        }
+        .modern-img:hover img {
+            transform: scale(1.03);
+        }
+
+        /* 模态框 */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            backdrop-filter: blur(8px);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        .modal.show {
+            display: flex;
+        }
+        .modal-card {
+            background: white;
+            max-width: 500px;
+            border-radius: 2rem;
+            overflow: hidden;
+            animation: fadeUp 0.3s;
+        }
+        .modal-card img {
+            width: 100%;
+            max-height: 280px;
+            object-fit: cover;
+        }
+        .modal-body {
+            padding: 1.5rem;
+        }
+        .close-modal {
+            background: #5C824B;
+            border: none;
+            padding: 0.5rem 1.2rem;
+            border-radius: 30px;
+            color: white;
+            cursor: pointer;
+        }
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(20px);}
+            to { opacity: 1; transform: translateY(0);}
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            border-top: 1px solid #E4DBCE;
+            color: #9B8B6E;
+            margin-top: 3rem;
+        }
+
+        @media (max-width: 850px) {
+            .container { padding: 0 1.2rem; }
+            .intro-block, .history-item, .modern-jinan { flex-direction: column; }
+            .history-item.reverse { flex-direction: column; }
+            .circle-img { width: 130px; height: 130px; }
+            .hero-badge { font-size: 0.9rem; letter-spacing: 3px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="hero">
+    <div class="hero-content">
+        <div class="hero-badge">JINAN · SPRING CITY</div>
+        <h1>Where Springs Breathe & History Flows—Jinan</h1>
+      <p style="margin-left: 15ch;">Lotus flowers, weeping willows, and the murmur of 72 springs — Jinan blends ancient soul with a vibrant future.</p>
+        <div class="hero-quote" style="background: rgba(0,0,0,0.4); backdrop-filter: blur(5px); display: inline-block; padding: 0.4rem 1.4rem; border-radius: 60px; color: #FFEFCF;">“A city of warm winters, described by Lao She.”</div>
+    </div>
+</div>
+
+<div class="nav-sticky">
+    <a href="#intro" class="nav-link">✦ INTRODUCTION</a>
+    <a href="#history" class="nav-link">📜 HISTORY</a>
+    <a href="#scenic" class="nav-link">🏞️ ATTRACTIONS</a>
+    <a href="#food" class="nav-link">🍜 CUISINE</a>
+    <a href="#culture" class="nav-link">🏮 CULTURE</a>
+    <a href="#modern" class="nav-link">🌆 MODERN</a>
+</div>
+
+<div class="container">
+    <!-- 1. 简介模块 -->
+    <div id="intro" class="intro-block">
+        <div class="intro-img">
+            <img src="images/简介模块1.jpg"="lazy">
+        </div>
+        <div class="intro-text">
+            <span class="section-tag">THE SPRING METROPOLIS</span>
+            <h2>Jinan · Pearl of the Yellow River</h2>
+            <p>Nourished by thousands of springs, Jinan is a living cultural heritage where nature meets modernity. With over 1,209 natural springs, it's the largest artesian spring system on Earth. The famous Baotu Spring has been celebrated for millennia. Jinan is also the capital of Shandong Province, a national historical and cultural city.</p>
+            <div class="stat-grid">
+                <div class="stat"><strong>1209+</strong><br>Springs</div>
+                <div class="stat"><strong>9.4M</strong><br>Population</div>
+                <div class="stat"><strong>2.6km²</strong><br>Old town springs</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 2. 历史模块 -->
+    <div id="history" class="history-alternate">
+        <div class="section-header">
+            <h2>Chronicles of an Ancient Capital</h2>
+            <p>From Neolithic roots to a modern powerhouse — Jinan’s 4,500-year journey</p>
+        </div>
+        <div class="history-item">
+            <div class="history-img">
+                <img src="images/遗址.jpg" alt="Longshan Culture">
+            </div>
+            <div class="history-text">
+                <div class="year">🏺 4500 BP · Longshan Culture</div>
+                <h3>Cradle of Eastern Civilization</h3>
+                <p>The Chengziya site revealed the earliest city walls and black pottery. Jinan became the capital of the State of Qi during the Warring States period, laying the foundation for Shandong’s cultural identity.</p>
+            </div>
+        </div>
+        <div class="history-item reverse">
+            <div class="history-img">
+                <img src="images/龙山文化.png" alt="Imperial Legacy">
+            </div>
+            <div class="history-text">
+                <div class="year">👑 Qing Dynasty · Emperor Qianlong</div>
+                <h3>Springs & Imperial Grace</h3>
+                <p>Emperor Qianlong named Baotu Spring "First Spring under Heaven". Jinan thrived along the Grand Canal, becoming a hub of poetry, commerce, and Buddhist art.</p>
+            </div>
+        </div>
+        <div class="history-item">
+            <div class="history-img">
+                <img src="images/老车站.jpg" alt="Modern port">
+            </div>
+            <div class="history-text">
+                <div class="year">🚂 1904 · Self-opened Port</div>
+                <h3>Modern Transition</h3>
+                <p>Jinan pioneered China’s first autonomous treaty port, blending German railway heritage with local resilience. Today it’s a national central city and innovation hub.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 3. 景点模块 -->
+    <div id="scenic" class="scenic-showcase">
+        <div class="section-header">
+            <h2>Must-See Landscapes</h2>
+            <p>Springs, lakes, and mountains — each corner unfolds a living painting</p>
+        </div>
+        <div class="scenic-grid">
+            <div class="scenic-card" data-name="Baotu Spring Park" data-desc="The most famous artesian spring, gushing 1.6m high. Surrounded by Song-style pavilions." data-img="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/Baotu_Spring_Pavilion.jpg/800px-Baotu_Spring_Pavilion.jpg">
+                <div class="scenic-card-inner">
+                    <img src="images/趵突泉近景.jpg" alt="Baotu Spring">
+                    <div class="scenic-overlay">
+                        <h4>Baotu Spring Park</h4>
+                        <p>“First Spring under Heaven” · Jet flow 240k m³/day</p>
+                    </div>
+                </div>
+            </div>
+            <div class="scenic-card" data-name="Daming Lake" data-desc="A scenic lake formed by springs, dotted with lotus and weeping willows. Lixia Pavilion is a poet’s retreat." data-img="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/Daming_Lake_in_Autumn_%282018%29.jpg/800px-Daming_Lake_in_Autumn_%282018%29.jpg">
+                <div class="scenic-card-inner">
+                    <img src="images/大明湖.jpg" alt="Daming Lake">
+                    <div class="scenic-overlay">
+                        <h4>Daming Lake</h4>
+                        <p>Lotus on four sides, willows on three</p>
+                    </div>
+                </div>
+            </div>
+            <div class="scenic-card" data-name="Thousand Buddha Mountain" data-desc="Over 130 Buddhist statues carved into cliffs since Sui Dynasty. Panoramic city view." data-img="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/Thousand_Buddha_Mountain_Jinan_2021.jpg/800px-Thousand_Buddha_Mountain_Jinan_2021.jpg">
+                <div class="scenic-card-inner">
+                    <img src="images/千佛山2.jpg" alt="Qianfo Mountain">
+                    <div class="scenic-overlay">
+                        <h4>Qianfo Mountain</h4>
+                        <p>1,000 Buddha statues · UNESCO tentative</p>
+                    </div>
+                </div>
+            </div>
+            <div class="scenic-card" data-name="Furong Ancient Street" data-desc="A thousand-year-old bustling street with Qing-era architecture, spring water streams, and local snacks." data-img="https://upload.wikimedia.org/wikipedia/commons/thumb/7/76/Furong_Street_Jinan_2021.jpg/800px-Furong_Street_Jinan_2021.jpg">
+                <div class="scenic-card-inner">
+                    <img src="images/芙蓉街.webp" alt="Furong Street">
+                    <div class="scenic-overlay">
+                        <h4>Furong Street</h4>
+                        <p>Night walk · spring water teahouses</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 4. 美食模块 -->
+    <div id="food" class="cuisine-duo">
+        <div class="cuisine-item" data-name="Ba Zi Rou" data-desc="Braised pork belly with soy sauce — a Three Kingdoms era comfort food. Tender, fatty, soul-warming." data-img="https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/Braised_pork_belly.jpg/800px-Braised_pork_belly.jpg">
+            <div class="circle-img">
+                <img src="images/把子肉.jpg"="Ba Zi Rou">
+            </div>
+            <h3>Ba Zi Rou</h3>
+            <p>把子肉 · Braised Pork Belly</p>
+        </div>
+        <div class="cuisine-item" data-name="Youxuan" data-desc="Golden spiral pastry, crispy outside and layered inside. Fragrant with scallion oil — the ultimate morning snack." data-img="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Youxuan_%28oil_swirl%29.jpg/800px-Youxuan_%28oil_swirl%29.jpg">
+            <div class="circle-img">
+                <img src="images/油旋.jpeg" alt="Youxuan">
+            </div>
+            <h3>Youxuan</h3>
+            <p>油旋 · Spiral Pastry</p>
+        </div>
+        <div class="cuisine-item" data-name="Tian Mo" data-desc="Savory millet porridge with peanuts, spinach, and tofu. Despite the name 'sweet foam', it's deeply savory and comforting." data-img="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Millet_congee.jpg/800px-Millet_congee.jpg">
+            <div class="circle-img">
+                <img src="images/甜沫.jpg" alt="Tian Mo">
+            </div>
+            <h3>Tian Mo</h3>
+            <p>甜沫 · Savory Millet Porridge</p>
+        </div>
+        <div class="cuisine-item" data-name="Jiu Zhuan Da Chang" data-desc="Pork intestine braised with complex sweet-sour-spicy layers. A masterpiece of Shandong imperial cuisine." data-img="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Braised_intestines_02.jpg/800px-Braised_intestines_02.jpg">
+            <div class="circle-img">
+                <img src="images/九转大肠.jpg" alt="Nine-turn intestines">
+            </div>
+            <h3>Jiu Zhuan Da Chang</h3>
+            <p>九转大肠 · Nine-turn Intestine</p>
+        </div>
+    </div>
+
+    <!-- 5. 新增模块：泉城非遗 · 文化瑰宝 -->
+    <div id="culture" class="culture-showcase">
+        <div class="section-header">
+            <h2>Intangible Heritage · Living Traditions</h2>
+            <p>The soul of Jinan beyond springs — folk arts, festivals, and timeless crafts</p>
+        </div>
+        <div class="culture-grid">
+            <div class="culture-card" data-name="Lü Opera (Lüju)" data-desc="Originating in Jinan, Lüju is a vibrant local opera with folk melodies, recognized as national intangible heritage." data-img="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Luju_performance.jpg/800px-Luju_performance.jpg">
+                <div class="culture-img">
+                    <img src="images/吕剧.webp" loading="lazy">
+                </div>
+                <div class="culture-info">
+                    <h3>Lü Opera (Lüju)</h3>
+                    <p>Vibrant local opera with folk melodies, born in Jinan. National intangible heritage.</p>
+                </div>
+            </div>
+            <div class="culture-card" data-name="Spring Water Tea Culture" data-desc="Using fresh spring water to brew tea, a unique ritual in Jinan’s old alley teahouses." data-img="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Tea_ceremony_Jinan.jpg/800px-Tea_ceremony_Jinan.jpg">
+                <div class="culture-img">
+                    <img src="images/泉水茶.png"="lazy">
+                </div>
+                <div class="culture-info">
+                    <h3>Spring Water Tea</h3>
+                    <p>Brewing tea with fresh spring water — a daily ritual unique to Jinan.</p>
+                </div>
+            </div>
+            <div class="culture-card" data-name="Lotus Lantern Festival" data-desc="Every summer, Daming Lake hosts lanterns floating on water, praying for blessings." data-img="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Water_lanterns.jpg/800px-Water_lanterns.jpg">
+                <div class="culture-img">
+                    <img src="images/花灯.jpg"="lazy">
+                </div>
+                <div class="culture-info">
+                    <h3>Lotus Lantern Festival</h3>
+                    <p>Floating lanterns on Daming Lake, a summer tradition of hope.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 6. 新增模块：现代济南 · 未来之城 -->
+    <div id="modern" class="modern-jinan">
+        <div class="modern-text">
+            <h2>Modern Jinan · Gateway to the Future</h2>
+            <p>As a national central city and core of the Yellow River economic belt, Jinan is home to China’s top advanced manufacturing and IT hubs. The Jinan Start Area and International Medical Science Center lead innovation in North China.</p>
+            <div class="modern-stats">
+                <div><strong>15+</strong><br>Fortune 500 HQs</div>
+                <div><strong>1200+</strong><br>Hi-tech firms</div>
+                <div><strong>EMU 2h</strong><br>to Beijing</div>
+            </div>
+        </div>
+        <div class="modern-img">
+            <img src="images/cbd.png"="lazy">
+        </div>
+    </div>
+</div>
+
+<footer>
+    © 2025 Jinan Cultural Project — Inspired by Nanfu Global Aesthetics | Open source imagery · Educational showcase
+</footer>
+
+<!-- 模态框交互 -->
+<div id="globalModal" class="modal">
+    <div class="modal-card">
+        <img id="modalImage" src="" alt="detail">
+        <div class="modal-body">
+            <h3 id="modalTitle"></h3>
+            <p id="modalDescription"></p>
+            <button class="close-modal">Close</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    const modal = document.getElementById('globalModal');
+    const modalImg = document.getElementById('modalImage');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalDesc = document.getElementById('modalDescription');
+    const closeBtn = document.querySelector('.close-modal');
+
+    function openModal(title, desc, imgSrc) {
+        modalTitle.innerText = title;
+        modalDesc.innerText = desc;
+        modalImg.src = imgSrc;
+        modal.classList.add('show');
+        document.body.style.overflow = 'hidden';
+    }
+    function closeModal() {
+        modal.classList.remove('show');
+        document.body.style.overflow = '';
+    }
+    closeBtn.addEventListener('click', closeModal);
+    modal.addEventListener('click', (e) => { if(e.target === modal) closeModal(); });
+
+ 
+
+
+    // 导航平滑
+    document.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const targetId = link.getAttribute('href').substring(1);
+            const target = document.getElementById(targetId);
+            if(target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+    });
+</script>
+</body>
+</html>
